@@ -42,7 +42,7 @@ class UserControllerTest {
         String password = "1q2w3e4r";
 
         // mock생성
-        when(userService.join()).thenReturn(mock(User.class));
+        when(userService.join(userName, password)).thenReturn(mock(User.class));
 
         mockMvc.perform(post("/api/v1/users/join")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -58,7 +58,7 @@ class UserControllerTest {
         String password = "1q2w3e4r";
 
         // mock 생성 - 에러 리턴
-        when(userService.join()).thenThrow(new SnsApplicationException());
+        when(userService.join(userName, password)).thenThrow(new SnsApplicationException());
 
         mockMvc.perform(post("/api/v1/users/join")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -72,8 +72,8 @@ class UserControllerTest {
         String userName = "kyeongrok";
         String password = "1q2w3e4r";
 
-        // mock생성
-        when(userService.login()).thenReturn("test_token");
+        // mock생성 - 성공 했다면 token을 발행함
+        when(userService.login(userName, password)).thenReturn("test_token");
 
         mockMvc.perform(post("/api/v1/users/join")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -89,7 +89,7 @@ class UserControllerTest {
         String password = "1q2w3e4r";
 
         // mock생성
-        when(userService.login()).thenThrow(new SnsApplicationException());
+        when(userService.login(userName, password)).thenThrow(new SnsApplicationException());
 
         mockMvc.perform(post("/api/v1/users/login")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -105,7 +105,7 @@ class UserControllerTest {
         String password = "1q2w3e4r";
 
         // mock생성
-        when(userService.login()).thenThrow(new SnsApplicationException());
+        when(userService.login(userName, password)).thenThrow(new SnsApplicationException());
 
         mockMvc.perform(post("/api/v1/users/login")
                         .contentType(MediaType.APPLICATION_JSON)
